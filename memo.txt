@@ -1,0 +1,9 @@
+dockerコンテナからwinの外部FSをマウントするのはハードル高いので、
+dockerホストにcifs-utils入れて共有し、それを -vでDockerに
+
+sudo mount -t cifs -o ro,username=user,password=pass //192.168.XX.XX/hoge/huga/namazutest /mnt/win
+
+docker build -t namazu .
+docker run -it -v /mnt/win:/mnt/windows -v `pwd`/index:/home/index -v `pwd`/www:/home/www  namazu /bin/bash
+
+mknmz -O /home/index /mnt/windows
